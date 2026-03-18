@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>VERA</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F5F0;
+    --charcoal: #2A2A28;
+    --mid: #6B6860;
+    --faint: #B5B0A5;
+    --crimson: #A51C30;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background-color: var(--bg);
+    font-family: 'Newsreader', serif;
+    color: var(--charcoal);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .bg-map {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180%;
+    max-width: 1000px;
+    height: auto;
+    aspect-ratio: 2 / 1;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.14;
+    filter: blur(1.8px);
+  }
+
+  .container {
+    max-width: 430px;
+    margin: 0 auto;
+    padding: 0 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .top {
+    padding: 28px 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    animation: appear 0.8s ease both;
+  }
+
+  .top-mono {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--faint);
+    letter-spacing: 1px;
+  }
+
+  .hero {
+    padding: 48px 0 40px;
+    animation: appear 0.8s 0.2s ease both;
+  }
+
+  .vera-letters {
+    display: flex;
+    gap: 4px;
+    align-items: baseline;
+  }
+
+  .vera-letters span {
+    font-family: 'Newsreader', serif;
+    font-size: 80px;
+    font-weight: 300;
+    line-height: 0.85;
+    color: var(--charcoal);
+  }
+
+  .vera-letters span:nth-child(3) {
+    color: var(--crimson);
+  }
+
+  .hero-line {
+    width: 100%;
+    height: 1px;
+    background: var(--faint);
+    margin-top: 20px;
+    opacity: 0.4;
+  }
+
+  .hero-descriptor {
+    margin-top: 16px;
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--mid);
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  .body-text {
+    padding: 32px 0;
+    animation: appear 0.8s 0.4s ease both;
+  }
+
+  .body-text p {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.9;
+    color: var(--charcoal);
+  }
+
+  .services {
+    padding: 24px 0;
+    animation: appear 0.8s 0.5s ease both;
+  }
+
+  .services-header {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--crimson);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .svc {
+    padding: 20px 0;
+    border-top: 1px solid rgba(42,42,40,0.08);
+  }
+
+  .svc-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .svc h3 {
+    font-family: 'Newsreader', serif;
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  .svc .svc-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--faint);
+  }
+
+  .svc p {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--mid);
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  /* ── Dr. Sanjay Kumar ── */
+  .advisor {
+    padding: 28px 0 36px;
+    border-top: 1px solid rgba(42,42,40,0.08);
+    animation: appear 0.8s 0.65s ease both;
+  }
+
+  .advisor-name {
+    font-family: 'Newsreader', serif;
+    font-size: 24px;
+    font-weight: 400;
+    margin: 20px 0 4px;
+  }
+
+  .advisor-role {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    color: var(--mid);
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+
+  .creds {
+    margin-bottom: 22px;
+  }
+
+  .cred {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--mid);
+    line-height: 1.75;
+    padding-left: 10px;
+    border-left: 1.5px solid var(--crimson);
+    margin-bottom: 6px;
+  }
+
+  .enquire-btn {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--charcoal);
+    padding: 12px 22px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .enquire-btn:hover { background: var(--crimson); }
+
+  .bottom-line {
+    height: 3px;
+    background: var(--crimson);
+    margin-top: 48px;
+    opacity: 0.6;
+    animation: appear 0.8s 0.8s ease both;
+  }
+
+  @keyframes appear {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="worldmap" class="bg-map" width="1000" height="500"></canvas>
+
+<div class="container">
+  <div class="top">
+    <span class="top-mono">2026</span>
+    <span class="top-mono">New Delhi</span>
+  </div>
+
+  <div class="hero">
+    <div class="vera-letters">
+      <span>V</span><span>E</span><span>R</span><span>A</span>
+    </div>
+    <div class="hero-line"></div>
+    <div class="hero-descriptor">Strategic advisory at the intersection of policy, governance, and institutional credibility</div>
+  </div>
+
+  <div class="body-text">
+    <p>VERA helps corporations, governments, and institutions navigate complex public environments — combining research-driven insight with practical engagement to strengthen credibility, manage risk, and build long-term trust.</p>
+  </div>
+
+  <div class="services">
+    <div class="services-header">Capabilities</div>
+    <div class="svc">
+      <div class="svc-row">
+        <h3>Policy Strategy</h3>
+        <span class="svc-num">01</span>
+      </div>
+      <p>Strategic positioning across regulatory and political environments</p>
+    </div>
+    <div class="svc">
+      <div class="svc-row">
+        <h3>Reputation & Crisis</h3>
+        <span class="svc-num">02</span>
+      </div>
+      <p>Protecting and rebuilding institutional standing</p>
+    </div>
+    <div class="svc">
+      <div class="svc-row">
+        <h3>Governance & Impact</h3>
+        <span class="svc-num">03</span>
+      </div>
+      <p>Trust frameworks and measurable social outcomes</p>
+    </div>
+  </div>
+
+  <div class="advisor">
+    <div class="services-header">Strategic Counsel</div>
+    <div class="advisor-name">Dr. Sanjay Kumar</div>
+    <div class="advisor-role">Founder &amp; Chief Strategist — Vera Strategy</div>
+    <div class="creds">
+      <div class="cred">Harvard Kennedy School alumnus</div>
+      <div class="cred">India Country Director, Harvard Lakshmi Mittal &amp; Family South Asia Institute</div>
+      <div class="cred">President, Harvard Club of India (2021–23)</div>
+      <div class="cred">President, Corporate Affairs &amp; Public Policy — upGrad</div>
+      <div class="cred">Founder, EdJustice Foundation</div>
+      <div class="cred">Author, <em>Katihar to Kennedy</em></div>
+    </div>
+    <a href="https://wa.me/919811306780" target="_blank" rel="noopener" class="enquire-btn">Enquire Now &#8594;</a>
+  </div>
+
+  <div class="bottom-line"></div>
+</div>
+
+<script>
+(function () {
+  const canvas = document.getElementById('worldmap');
+  const ctx    = canvas.getContext('2d');
+  const W = 1000, H = 500;
+
+  // Equirectangular projection: [lat, lon] → canvas [x, y]
+  function pt(lat, lon) {
+    return [(lon + 180) * W / 360, (90 - lat) * H / 180];
+  }
+
+  // Continent outlines as [lat, lon] pairs (simplified)
+  const shapes = [
+    // North America
+    [[72,-140],[70,-100],[72,-70],[60,-55],[47,-53],[42,-70],[36,-76],[30,-81],
+     [25,-80],[20,-87],[15,-85],[9,-79],[12,-83],[20,-104],[24,-109],[30,-116],
+     [35,-120],[40,-124],[48,-124],[54,-130],[58,-136],[60,-140],[65,-168],[70,-160]],
+    // Greenland
+    [[83,-45],[77,-18],[72,-22],[63,-44],[60,-48],[65,-53],[72,-52],[77,-68],[83,-60]],
+    // South America
+    [[12,-72],[10,-62],[6,-52],[0,-50],[-5,-35],[-10,-37],[-15,-38],[-23,-43],
+     [-30,-50],[-35,-57],[-42,-62],[-46,-65],[-52,-68],[-55,-65],[-50,-73],
+     [-40,-73],[-30,-71],[-20,-70],[-10,-75],[0,-80],[10,-75]],
+    // Europe
+    [[71,26],[68,16],[62,5],[55,8],[51,2],[46,2],[43,5],[38,15],[36,14],[37,26],
+     [42,28],[46,32],[48,37],[55,37],[60,30],[63,26],[68,20]],
+    // Scandinavia
+    [[57,8],[62,5],[68,16],[71,26],[69,28],[65,24],[60,18],[57,12],[57,8]],
+    // UK
+    [[58,-5],[60,-1],[57,2],[52,2],[50,0],[50,-5],[52,-5],[55,-6]],
+    // Africa
+    [[37,10],[36,14],[30,32],[22,38],[12,44],[2,42],[-5,40],[-10,36],[-15,35],
+     [-22,34],[-30,30],[-34,26],[-35,20],[-30,17],[-22,14],[-15,12],[-5,10],
+     [0,8],[5,2],[5,-2],[10,-17],[15,-17],[18,-16],[22,-17],[28,-13],[33,-8]],
+    // Arabia / Middle East
+    [[30,35],[28,33],[22,37],[14,42],[12,44],[2,42],[10,42],[13,48],[15,50],
+     [18,55],[22,60],[24,57],[28,48],[30,38]],
+    // India subcontinent
+    [[30,75],[28,68],[22,68],[8,77],[8,80],[12,79],[15,80],[20,87],[22,88],
+     [25,87],[28,85],[32,78],[35,75]],
+    // Asia (main body)
+    [[70,30],[70,60],[72,100],[70,140],[66,169],[60,162],[54,135],[52,140],
+     [43,131],[40,124],[34,120],[28,118],[22,114],[16,106],[10,105],[5,100],
+     [5,97],[10,98],[15,100],[22,100],[28,97],[22,88],[28,85],[32,78],[35,73],
+     [28,60],[22,60],[18,55],[14,48],[22,37],[28,34],[35,36],[40,36],[42,44],
+     [44,50],[48,46],[42,52],[38,58],[38,64],[42,70],[50,80],[56,82],[58,74],
+     [60,66],[62,60],[60,50],[60,40],[64,40],[68,37]],
+    // Japan (Honshu)
+    [[40,140],[38,141],[34,137],[33,130],[34,130],[36,133],[38,138]],
+    // SE Asia (Indochina)
+    [[22,100],[15,100],[10,98],[5,100],[5,104],[1,104],[5,115],[10,110],[18,106],[22,105]],
+    // Australia
+    [[-14,126],[-10,136],[-14,136],[-16,130],[-20,116],[-22,114],[-31,116],
+     [-34,117],[-38,146],[-38,148],[-36,150],[-32,153],[-26,153],[-22,150],
+     [-18,148],[-16,145],[-18,140],[-15,136],[-12,136],[-12,130]],
+    // New Zealand (South Island)
+    [[-44,168],[-41,174],[-43,172],[-46,168]],
+  ];
+
+  // Point-in-polygon (ray casting)
+  function pip(px, py, poly) {
+    let inside = false;
+    for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+      const [xi, yi] = poly[i], [xj, yj] = poly[j];
+      if ((yi > py) !== (yj > py) && px < ((xj - xi) * (py - yi)) / (yj - yi) + xi) {
+        inside = !inside;
+      }
+    }
+    return inside;
+  }
+
+  // Pre-convert all shapes to canvas coordinates
+  const polys = shapes.map(s => s.map(([lat, lon]) => pt(lat, lon)));
+
+  ctx.fillStyle = '#A51C30';
+  const step = 7.78, r = 2.2;
+
+  for (let y = step / 2; y < H; y += step) {
+    for (let x = step / 2; x < W; x += step) {
+      for (const poly of polys) {
+        if (pip(x, y, poly)) {
+          ctx.beginPath();
+          ctx.arc(x, y, r, 0, Math.PI * 2);
+          ctx.fill();
+          break;
+        }
+      }
+    }
+  }
+})();
+</script>
+
+</body>
+</html>
